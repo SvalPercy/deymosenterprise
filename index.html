@@ -3,241 +3,134 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Deymos Enterprise | UGREEN Perú</title>
+<title>Deymos Enterprise</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial;
-  background: #f4f4f4;
-}
+body { margin:0; font-family:Arial; background:#f5f5f5; }
 
 /* HEADER */
-header {
-  background: #000;
-  color: white;
-  padding: 15px;
-  text-align: center;
+.header { background:#0a0a0a; color:white; padding:10px; }
+.header-top { display:flex; align-items:center; gap:10px; }
+
+.logo { font-size:20px; font-weight:bold; text-decoration:none; color:white; }
+
+.search { flex:1; position:relative; }
+.search input { width:100%; padding:8px 30px 8px 8px; }
+
+#clearBtn {
+  position:absolute; right:10px; top:8px;
+  cursor:pointer; color:#999; display:none;
 }
 
-/* LAYOUT */
-.main {
-  display: flex;
+#resultados {
+  position:absolute; top:35px; left:0; width:100%;
+  background:white; color:black; border-radius:5px;
+  z-index:100; box-shadow:0 5px 10px rgba(0,0,0,0.2);
 }
 
-/* SIDEBAR */
-.sidebar {
-  width: 220px;
-  background: white;
-  padding: 15px;
-  border-right: 1px solid #ddd;
-}
+/* PRODUCTOS */
+.container { max-width:900px; margin:auto; padding:10px; }
 
-.sidebar button {
-  display: block;
-  width: 100%;
-  margin: 5px 0;
-  padding: 8px;
-  border: none;
-  background: #eee;
-  cursor: pointer;
-}
-
-/* CONTENT */
-.content {
-  flex: 1;
-  padding: 15px;
-}
-
-/* BUSCADOR */
-.search input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-/* GRID */
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
-  gap: 15px;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:15px;
 }
 
-/* CARD */
 .card {
-  background: white;
-  padding: 10px;
-  border-radius: 10px;
-  text-align: center;
+  background:white; padding:10px; border-radius:10px; text-align:center;
 }
 
-.card img {
-  width: 100%;
-  height: 140px;
-  object-fit: contain;
-}
+.card img { width:100%; height:140px; object-fit:contain; }
 
-.price {
-  color: green;
-  font-weight: bold;
-}
+.price { color:green; font-weight:bold; }
 
 .btn {
-  background: #25D366;
-  color: white;
-  padding: 8px;
-  display: block;
-  margin-top: 5px;
-  text-decoration: none;
-  border-radius: 5px;
+  background:#25D366; color:white;
+  padding:8px; display:block; margin-top:5px;
+  text-decoration:none; border-radius:5px;
 }
 
-/* INFO */
-.info {
-  background: white;
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 10px;
-}
-
-/* 📱 RESPONSIVE PRO */
-@media (max-width: 768px) {
-
-  .main {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    width: 100%;
-    display: flex;
-    overflow-x: auto;
-    gap: 5px;
-    padding: 10px;
-  }
-
-  .sidebar button {
-    min-width: 120px;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
+/* RESPONSIVE */
+@media(max-width:768px){
+  .grid { grid-template-columns:1fr; }
 }
 </style>
 </head>
 
 <body>
 
-<header>
-<h1>Deymos Enterprise</h1>
-<p>Especialistas en UGREEN - Compuplaza</p>
-</header>
+<div class="header">
+  <div class="header-top">
 
-<div class="main">
+    <a href="index.html" class="logo">Deymos Enterprise</a>
 
-<!-- SIDEBAR -->
-<div class="sidebar">
-  <button onclick="filtrarCategoria('todos')">Todos</button>
-  <button onclick="filtrarCategoria('cargadores')">Cargadores</button>
-  <button onclick="filtrarCategoria('cables')">Cables</button>
+    <div class="search">
+      <input type="text" id="buscadorInput" placeholder="Buscar..." onkeyup="buscarProducto()">
+      <span id="clearBtn" onclick="limpiarBusqueda()">✖</span>
+      <div id="resultados"></div>
+    </div>
+
+  </div>
 </div>
 
-<!-- CONTENT -->
-<div class="content">
+<div class="container">
 
-<!-- BUSCADOR -->
-<div class="search">
-  <input type="text" id="buscador" placeholder="Buscar producto..." onkeyup="buscar()">
-</div>
+<div class="grid">
 
-<!-- FILTRO -->
-<select onchange="ordenar(this.value)">
-  <option value="">Ordenar por precio</option>
-  <option value="menor">Menor a mayor</option>
-  <option value="mayor">Mayor a menor</option>
-</select>
-
-<!-- PRODUCTOS -->
-<div class="grid" id="productos">
-
-<!-- PRODUCTO PRINCIPAL -->
-<div class="card" data-nombre="cargador 65w ugreen" data-precio="105" data-categoria="cargadores">
-
-  <a href="robot-65w-negro-ugreen.html" style="text-decoration:none; color:black;">
+<div class="card">
+  <a href="robot-65w-negro-ugreen.html">
     <img src="cargadorugreen65wnegro.webp">
-    <h4>Cargador 65W Robot Negro UGREEN 15570</h4>
+    <h4>Cargador 65W Robot UGREEN</h4>
   </a>
-
   <p class="price">S/ 105</p>
-
-  <a class="btn" href="https://wa.me/51994029490">
-    Comprar
-  </a>
-
+  <a class="btn" href="https://wa.me/51994029490">Comprar</a>
 </div>
 
 </div>
 
-<!-- UBICACIÓN -->
-<div class="info">
-  <h3>📍 Ubicación</h3>
-
-  <p>
-    Av. Garcilaso de la Vega (ex Av. Wilson) 1251,  
-    Tienda 310, Cercado de Lima – Galería Compuplaza
-  </p>
-
-  <a href="https://maps.app.goo.gl/j6fcZnVKjdMZVDG5A" target="_blank">
-    👉 Abrir ubicación exacta en Google Maps
-  </a>
-
-  <iframe 
-    src="https://www.google.com/maps?q=Av%20Garcilaso%20de%20la%20Vega%201251%20Compuplaza%20Lima&output=embed"
-    width="100%" height="220" style="border-radius:10px; border:0;">
-  </iframe>
-
-  <h3>🕒 Horario</h3>
-  <p>Lunes a Sábado: 10:00 AM - 8:00 PM</p>
-</div>
-
-</div>
 </div>
 
 <script>
 
-/* BUSCAR */
-function buscar() {
-  let input = document.getElementById("buscador").value.toLowerCase();
-  let productos = document.querySelectorAll(".card");
+const productos = [
+  {
+    nombre:"Cargador 65W Robot Negro UGREEN 15570",
+    precio:"S/ 105",
+    imagen:"cargadorugreen65wnegro.webp",
+    link:"robot-65w-negro-ugreen.html"
+  }
+];
 
-  productos.forEach(p => {
-    p.style.display = p.dataset.nombre.includes(input) ? "block" : "none";
-  });
-}
+function buscarProducto(){
+  let input=document.getElementById("buscadorInput").value.toLowerCase();
+  let resultados=document.getElementById("resultados");
+  let clearBtn=document.getElementById("clearBtn");
 
-/* ORDENAR */
-function ordenar(tipo) {
-  let cont = document.getElementById("productos");
-  let items = Array.from(cont.children);
+  resultados.innerHTML="";
+  clearBtn.style.display=input?"block":"none";
 
-  items.sort((a,b)=>{
-    let p1 = parseInt(a.dataset.precio);
-    let p2 = parseInt(b.dataset.precio);
-    return tipo==="menor"? p1-p2 : p2-p1;
-  });
-
-  cont.innerHTML="";
-  items.forEach(i=>cont.appendChild(i));
-}
-
-/* FILTRO */
-function filtrarCategoria(cat){
-  let productos = document.querySelectorAll(".card");
+  if(input==="") return;
 
   productos.forEach(p=>{
-    p.style.display = (cat==="todos"||p.dataset.categoria===cat)?"block":"none";
+    if(p.nombre.toLowerCase().includes(input)){
+      resultados.innerHTML+=`
+      <div onclick="window.location.href='${p.link}'"
+      style="display:flex; gap:10px; padding:8px; cursor:pointer;">
+        <img src="${p.imagen}" style="width:40px;height:40px;">
+        <div>
+          <div>${p.nombre}</div>
+          <div style="color:green;">${p.precio}</div>
+        </div>
+      </div>`;
+    }
   });
+}
+
+function limpiarBusqueda(){
+  document.getElementById("buscadorInput").value="";
+  document.getElementById("resultados").innerHTML="";
+  document.getElementById("clearBtn").style.display="none";
 }
 
 </script>
