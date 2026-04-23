@@ -7,64 +7,91 @@
 
 <style>
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
-  background: #f5f5f5;
+  font-family: Arial;
+  background: #f4f4f4;
 }
 
+/* HEADER */
 header {
-  background: #0a0a0a;
+  background: #000;
   color: white;
+  padding: 15px;
   text-align: center;
-  padding: 20px;
 }
 
-header p {
-  color: #00c853;
+/* LAYOUT */
+.main {
+  display: flex;
 }
 
-.container {
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  background: white;
+  padding: 15px;
+  border-right: 1px solid #ddd;
+}
+
+.sidebar h3 {
+  margin-top: 0;
+}
+
+.sidebar button {
+  display: block;
+  width: 100%;
+  margin: 5px 0;
+  padding: 8px;
+  border: none;
+  background: #eee;
+  cursor: pointer;
+}
+
+/* CONTENT */
+.content {
+  flex: 1;
   padding: 15px;
 }
 
-.section-title {
-  font-weight: bold;
-  margin: 15px 0;
-  font-size: 18px;
+/* BUSCADOR */
+.search {
+  margin-bottom: 10px;
 }
 
+.search input {
+  width: 100%;
+  padding: 10px;
+}
+
+/* FILTRO */
+.filter {
+  margin-bottom: 10px;
+}
+
+/* GRID */
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
   gap: 15px;
 }
 
+/* CARD */
 .card {
   background: white;
   padding: 10px;
-  border-radius: 12px;
+  border-radius: 10px;
   text-align: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* 🔥 CONTROL DE IMAGEN */
 .card img {
   width: 100%;
   height: 150px;
   object-fit: contain;
-  border-radius: 8px;
-  background: #fff;
-}
-
-.card h3 {
-  font-size: 13px;
-  margin: 8px 0;
 }
 
 .price {
   color: green;
   font-weight: bold;
-  margin: 5px 0;
 }
 
 .btn {
@@ -72,20 +99,17 @@ header p {
   color: white;
   padding: 8px;
   display: block;
-  border-radius: 6px;
+  margin-top: 5px;
   text-decoration: none;
-  margin-top: 8px;
+  border-radius: 5px;
 }
 
-.whatsapp {
-  position: fixed;
-  bottom: 15px;
-  right: 15px;
-  background: #25D366;
-  color: white;
-  padding: 12px 15px;
-  border-radius: 50px;
-  text-decoration: none;
+/* INFO */
+.info {
+  background: white;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
 }
 </style>
 </head>
@@ -93,38 +117,111 @@ header p {
 <body>
 
 <header>
-  <h1>Deymos Enterprise</h1>
-  <p>Distribuidor UGREEN en Lima</p>
+<h1>Deymos Enterprise</h1>
+<p>Especialistas en UGREEN - Compuplaza</p>
 </header>
 
-<div class="container">
+<div class="main">
 
-  <div class="section-title">⚡ Cargadores UGREEN</div>
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h3>Marcas</h3>
+  <button onclick="filtrarMarca('UGREEN')">UGREEN</button>
+  <button onclick="filtrarMarca('todos')">Todos</button>
+</div>
 
-  <div class="grid">
+<!-- CONTENIDO -->
+<div class="content">
 
-    <!-- ✅ PRODUCTO REAL CON IMAGEN -->
-    <div class="card">
+  <!-- BUSCADOR -->
+  <div class="search">
+    <input type="text" id="buscador" placeholder="Buscar producto..." onkeyup="buscar()">
+  </div>
+
+  <!-- FILTRO -->
+  <div class="filter">
+    <select onchange="ordenar(this.value)">
+      <option value="">Ordenar por precio</option>
+      <option value="menor">Menor a mayor</option>
+      <option value="mayor">Mayor a menor</option>
+    </select>
+  </div>
+
+  <!-- PRODUCTOS -->
+  <div class="grid" id="productos">
+
+    <div class="card" data-nombre="cargador 65w ugreen" data-precio="105" data-marca="UGREEN">
       <img src="cargadorugreen65wnegro.webp">
-      <h3>CARGADOR 65W ROBOT NEGRO UGREEN 15570</h3>
+      <h4>Cargador 65W Robot Negro UGREEN 15570</h4>
       <p class="price">S/ 105</p>
-      <a class="btn" href="https://wa.me/51994029490?text=Hola,%20quiero%20Cargador%2065W%20UGREEN%2015570">Comprar</a>
+      <a class="btn" href="https://wa.me/51994029490">Comprar</a>
     </div>
 
-    <!-- ❌ SIN IMAGEN (porque no corresponde) -->
-    <div class="card">
-      <h3>Cargador Rápido Tipo C UGREEN</h3>
+    <div class="card" data-nombre="cargador tipo c ugreen" data-precio="45" data-marca="UGREEN">
+      <h4>Cargador Tipo C UGREEN</h4>
       <p class="price">S/ 45</p>
-      <a class="btn" href="https://wa.me/51994029490?text=Hola,%20quiero%20Cargador%20UGREEN">Comprar</a>
+      <a class="btn" href="https://wa.me/51994029490">Comprar</a>
     </div>
 
   </div>
 
+  <!-- INFO -->
+  <div class="info">
+    <h3>📍 Ubicación</h3>
+    <p>Compuplaza, Tienda 310 - Lima</p>
+
+    <iframe src="https://www.google.com/maps?q=compuplaza+lima&output=embed" width="100%" height="200"></iframe>
+
+    <h3>🕒 Horario</h3>
+    <p>Lunes a Sábado: 10:00 AM - 8:00 PM</p>
+  </div>
+
 </div>
 
-<a class="whatsapp" href="https://wa.me/51994029490">
-💬 WhatsApp
-</a>
+</div>
+
+<script>
+
+/* BUSCADOR */
+function buscar() {
+  let input = document.getElementById("buscador").value.toLowerCase();
+  let productos = document.querySelectorAll(".card");
+
+  productos.forEach(p => {
+    let nombre = p.dataset.nombre;
+    p.style.display = nombre.includes(input) ? "block" : "none";
+  });
+}
+
+/* ORDENAR */
+function ordenar(tipo) {
+  let contenedor = document.getElementById("productos");
+  let items = Array.from(contenedor.children);
+
+  items.sort((a,b)=>{
+    let p1 = parseInt(a.dataset.precio);
+    let p2 = parseInt(b.dataset.precio);
+    return tipo==="menor"? p1-p2 : p2-p1;
+  });
+
+  contenedor.innerHTML="";
+  items.forEach(i=>contenedor.appendChild(i));
+}
+
+/* FILTRO MARCA */
+function filtrarMarca(marca) {
+  let productos = document.querySelectorAll(".card");
+
+  productos.forEach(p => {
+    if(marca==="todos" || p.dataset.marca===marca){
+      p.style.display="block";
+    } else {
+      p.style.display="none";
+    }
+  });
+}
+
+</script>
 
 </body>
 </html>
