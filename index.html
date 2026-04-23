@@ -6,149 +6,111 @@
 <title>Deymos Enterprise | UGREEN Perú</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial;
-  background: #f4f4f4;
-}
+body { margin:0; font-family:Arial; background:#f4f4f4; }
 
 /* HEADER */
-header {
-  background: #000;
-  color: white;
-  padding: 15px;
-  text-align: center;
-}
+header { background:#000; color:white; padding:15px; text-align:center; }
 
 /* LAYOUT */
-.main {
-  display: flex;
-}
+.main { display:flex; }
 
 /* SIDEBAR */
 .sidebar {
-  width: 220px;
-  background: white;
-  padding: 15px;
-  border-right: 1px solid #ddd;
+  width:220px; background:white; padding:15px; border-right:1px solid #ddd;
 }
-
-.sidebar h3 {
-  margin-top: 10px;
-}
-
 .sidebar button {
-  display: block;
-  width: 100%;
-  margin: 5px 0;
-  padding: 8px;
-  border: none;
-  background: #eee;
-  cursor: pointer;
+  width:100%; margin:5px 0; padding:8px; border:none; background:#eee; cursor:pointer;
 }
 
 /* CONTENT */
-.content {
-  flex: 1;
-  padding: 15px;
-}
+.content { flex:1; padding:15px; }
 
 /* BUSCADOR */
-.search input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-}
+.search input { width:100%; padding:10px; margin-bottom:10px; }
 
 /* GRID */
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
-  gap: 15px;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:15px;
 }
 
 /* CARD */
 .card {
-  background: white;
-  padding: 10px;
-  border-radius: 10px;
-  text-align: center;
+  background:white; padding:10px; border-radius:10px; text-align:center;
 }
-
 .card img {
-  width: 100%;
-  height: 140px;
-  object-fit: contain;
+  width:100%; height:140px; object-fit:contain;
 }
 
-.price {
-  color: green;
-  font-weight: bold;
-}
+.price { color:green; font-weight:bold; }
 
 .btn {
-  background: #25D366;
-  color: white;
-  padding: 8px;
-  display: block;
-  margin-top: 5px;
-  text-decoration: none;
-  border-radius: 5px;
+  background:#25D366; color:white; padding:8px; display:block;
+  margin-top:5px; text-decoration:none; border-radius:5px;
+}
+
+/* MODAL */
+.modal {
+  display:none; position:fixed; top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.7);
+}
+
+.modal-content {
+  background:white;
+  margin:5% auto;
+  padding:15px;
+  width:95%;
+  max-width:450px;
+  border-radius:10px;
+}
+
+.modal img {
+  width:100%;
+  height:200px;
+  object-fit:contain;
+}
+
+/* GALERIA */
+.galeria {
+  display:flex;
+  gap:5px;
+  margin-top:10px;
+}
+.galeria img {
+  width:60px;
+  height:60px;
+  object-fit:contain;
+  cursor:pointer;
+  border:1px solid #ccc;
 }
 
 /* INFO */
 .info {
-  background: white;
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 10px;
+  background:white;
+  margin-top:20px;
+  padding:15px;
+  border-radius:10px;
 }
 
 /* 📱 RESPONSIVE PRO */
-@media (max-width: 768px) {
+@media (max-width:768px) {
 
-  .main {
-    flex-direction: column;
-  }
+  .main { flex-direction:column; }
 
   .sidebar {
-    width: 100%;
-    display: flex;
-    overflow-x: auto;
-    gap: 5px;
-    padding: 10px;
-  }
-
-  .sidebar h3 {
-    display: none;
+    display:flex;
+    overflow-x:auto;
+    gap:5px;
   }
 
   .sidebar button {
-    min-width: 140px;
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 20px;
-    background: #eaeaea;
+    min-width:120px;
   }
 
   .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .card {
-    padding: 15px;
-  }
-
-  .card img {
-    height: 160px;
-  }
-
-  header h1 {
-    font-size: 20px;
-  }
-
-  .price {
-    font-size: 18px;
+    grid-template-columns:1fr;
   }
 
 }
@@ -166,97 +128,108 @@ header {
 
 <!-- SIDEBAR -->
 <div class="sidebar">
-
-  <h3>Marcas</h3>
-  <button onclick="filtrarMarca('UGREEN')">UGREEN</button>
-  <button onclick="filtrarMarca('todos')">Todos</button>
-
-  <h3>Categorías</h3>
   <button onclick="filtrarCategoria('todos')">Todos</button>
   <button onclick="filtrarCategoria('cargadores')">Cargadores</button>
-  <button onclick="filtrarCategoria('hubs')">Hubs</button>
-  <button onclick="filtrarCategoria('adaptadores')">Adaptadores</button>
-  <button onclick="filtrarCategoria('extensiones')">Extensiones</button>
   <button onclick="filtrarCategoria('cables')">Cables</button>
-
 </div>
 
 <!-- CONTENT -->
 <div class="content">
 
-  <!-- BUSCADOR -->
-  <div class="search">
-    <input type="text" id="buscador" placeholder="Buscar producto..." onkeyup="buscar()">
-  </div>
+<div class="search">
+<input type="text" id="buscador" placeholder="Buscar..." onkeyup="buscar()">
+</div>
 
-  <!-- FILTRO -->
-  <select onchange="ordenar(this.value)">
-    <option value="">Ordenar por precio</option>
-    <option value="menor">Menor a mayor</option>
-    <option value="mayor">Mayor a menor</option>
-  </select>
+<select onchange="ordenar(this.value)">
+<option value="">Ordenar</option>
+<option value="menor">Menor precio</option>
+<option value="mayor">Mayor precio</option>
+</select>
 
-  <!-- PRODUCTOS -->
-  <div class="grid" id="productos">
+<div class="grid" id="productos">
 
-    <div class="card" data-nombre="cargador 65w ugreen" data-precio="105" data-marca="UGREEN" data-categoria="cargadores">
-      <img src="cargadorugreen65wnegro.webp">
-      <h4>Cargador 65W Robot Negro UGREEN 15570</h4>
-      <p class="price">S/ 105</p>
-      <a class="btn" href="https://wa.me/51994029490">Comprar</a>
-    </div>
-
-    <div class="card" data-nombre="cargador tipo c ugreen" data-precio="45" data-marca="UGREEN" data-categoria="cargadores">
-      <h4>Cargador Tipo C UGREEN</h4>
-      <p class="price">S/ 45</p>
-      <a class="btn" href="https://wa.me/51994029490">Comprar</a>
-    </div>
-
-  </div>
-
-  <!-- UBICACIÓN REAL -->
-  <div class="info">
-    <h3>📍 Ubicación</h3>
-
-    <p>
-      Av. Garcilaso de la Vega (ex Av. Wilson) 1251,  
-      Tienda 310, Cercado de Lima – Galería Compuplaza
-    </p>
-
-    <a href="https://maps.app.goo.gl/j6fcZnVKjdMZVDG5A" target="_blank">
-      👉 Abrir ubicación exacta en Google Maps
-    </a>
-
-    <iframe 
-      src="https://www.google.com/maps?q=Av%20Garcilaso%20de%20la%20Vega%201251%20Compuplaza%20Lima&output=embed"
-      width="100%" height="220" style="border-radius:10px; border:0;">
-    </iframe>
-
-    <h3>🕒 Horario</h3>
-    <p>Lunes a Sábado: 10:00 AM - 8:00 PM</p>
-  </div>
+<div class="card" data-nombre="cargador 65w ugreen" data-precio="105" data-categoria="cargadores">
+<img src="cargadorugreen65wnegro.webp">
+<h4>Cargador 65W Robot Negro UGREEN 15570</h4>
+<p class="price">S/ 105</p>
+<button onclick="abrirProducto()">Ver producto</button>
+<a class="btn" href="https://wa.me/51994029490">Comprar</a>
+</div>
 
 </div>
 
+<!-- UBICACIÓN -->
+<div class="info">
+<h3>📍 Ubicación</h3>
+<p>Av. Garcilaso de la Vega 1251, Tienda 310 - Compuplaza</p>
+<a href="https://maps.app.goo.gl/j6fcZnVKjdMZVDG5A" target="_blank">
+👉 Abrir en Google Maps
+</a>
+<iframe src="https://www.google.com/maps?q=Av%20Garcilaso%20de%20la%20Vega%201251&output=embed" width="100%" height="200"></iframe>
+</div>
+
+</div>
+</div>
+
+<!-- MODAL PRODUCTO -->
+<div class="modal" id="modal">
+<div class="modal-content">
+
+<span onclick="cerrarModal()">❌</span>
+
+<img id="imgPrincipal">
+
+<div class="galeria">
+<img src="cargadorugreen65wnegro.webp" onclick="cambiarImg(this.src)">
+<img src="cargadorugreen65wnegro.webp" onclick="cambiarImg(this.src)">
+<img src="cargadorugreen65wnegro.webp" onclick="cambiarImg(this.src)">
+</div>
+
+<h3>Cargador 65W Robot Negro UGREEN 15570</h3>
+<p class="price">S/ 105</p>
+
+<ul>
+<li>65W carga rápida</li>
+<li>USB-C</li>
+<li>Diseño compacto</li>
+<li>Ideal para laptops y celulares</li>
+</ul>
+
+<a class="btn" href="https://wa.me/51994029490">Comprar</a>
+
+</div>
 </div>
 
 <script>
+
+/* MODAL */
+function abrirProducto() {
+  document.getElementById("modal").style.display="block";
+  document.getElementById("imgPrincipal").src="cargadorugreen65wnegro.webp";
+}
+
+function cerrarModal() {
+  document.getElementById("modal").style.display="none";
+}
+
+function cambiarImg(src) {
+  document.getElementById("imgPrincipal").src=src;
+}
 
 /* BUSCAR */
 function buscar() {
   let input = document.getElementById("buscador").value.toLowerCase();
   let productos = document.querySelectorAll(".card");
 
-  productos.forEach(p => {
-    let nombre = p.dataset.nombre;
-    p.style.display = nombre.includes(input) ? "block" : "none";
+  productos.forEach(p=>{
+    p.style.display = p.dataset.nombre.includes(input) ? "block":"none";
   });
 }
 
 /* ORDENAR */
-function ordenar(tipo) {
-  let contenedor = document.getElementById("productos");
-  let items = Array.from(contenedor.children);
+function ordenar(tipo){
+  let cont = document.getElementById("productos");
+  let items = Array.from(cont.children);
 
   items.sort((a,b)=>{
     let p1 = parseInt(a.dataset.precio);
@@ -264,25 +237,16 @@ function ordenar(tipo) {
     return tipo==="menor"? p1-p2 : p2-p1;
   });
 
-  contenedor.innerHTML="";
-  items.forEach(i=>contenedor.appendChild(i));
+  cont.innerHTML="";
+  items.forEach(i=>cont.appendChild(i));
 }
 
-/* FILTRO MARCA */
-function filtrarMarca(marca) {
+/* FILTRO */
+function filtrarCategoria(cat){
   let productos = document.querySelectorAll(".card");
 
-  productos.forEach(p => {
-    p.style.display = (marca==="todos" || p.dataset.marca===marca) ? "block" : "none";
-  });
-}
-
-/* FILTRO CATEGORIA */
-function filtrarCategoria(cat) {
-  let productos = document.querySelectorAll(".card");
-
-  productos.forEach(p => {
-    p.style.display = (cat==="todos" || p.dataset.categoria===cat) ? "block" : "none";
+  productos.forEach(p=>{
+    p.style.display = (cat==="todos"||p.dataset.categoria===cat)?"block":"none";
   });
 }
 
