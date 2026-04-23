@@ -6,30 +6,46 @@
 <title>Cargador 65W Robot UGREEN</title>
 
 <style>
-body { font-family:Arial; margin:0; background:#f5f5f5; }
+body { margin:0; font-family:Arial; background:#f5f5f5; }
 
 /* HEADER */
 .header { background:#0a0a0a; color:white; padding:10px; }
 .header-top { display:flex; align-items:center; gap:10px; }
 
-.logo { font-size:20px; font-weight:bold; text-decoration:none; color:white; }
+.logo {
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+}
 
-.search { flex:1; position:relative; }
+/* BUSCADOR */
+.search { width:50%; max-width:400px; position:relative; }
 .search input { width:100%; padding:8px 30px 8px 8px; }
 
 #clearBtn {
-  position:absolute; right:10px; top:8px;
-  cursor:pointer; color:#999; display:none;
+  position:absolute;
+  right:10px;
+  top:8px;
+  cursor:pointer;
+  display:none;
 }
 
 #resultados {
-  position:absolute; top:35px; left:0; width:100%;
-  background:white; color:black; border-radius:5px;
-  z-index:100; box-shadow:0 5px 10px rgba(0,0,0,0.2);
+  position:absolute;
+  top:35px;
+  width:100%;
+  background:white;
+  border-radius:5px;
+  box-shadow:0 5px 10px rgba(0,0,0,0.2);
+  z-index:100;
 }
 
 /* CONTENIDO */
-.container { max-width:900px; margin:auto; padding:10px; }
+.container {
+  max-width:900px;
+  margin:auto;
+  padding:10px;
+}
 
 .producto {
   display:grid;
@@ -40,17 +56,37 @@ body { font-family:Arial; margin:0; background:#f5f5f5; }
   border-radius:10px;
 }
 
-.img-principal { width:100%; height:300px; object-fit:contain; }
+/* IMAGEN */
+.img-principal {
+  width:100%;
+  height:300px;
+  object-fit:contain;
+}
 
-.galeria { display:flex; gap:10px; margin-top:10px; }
-.galeria img { width:60px; cursor:pointer; }
+.galeria {
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+}
 
+.galeria img {
+  width:60px;
+  cursor:pointer;
+  border:1px solid #ccc;
+}
+
+/* TEXTO */
 .titulo { font-size:20px; font-weight:bold; }
-.precio { font-size:24px; color:green; }
+.precio { font-size:24px; color:green; margin:10px 0; }
 
+/* BOTONES */
 .btn {
-  display:block; padding:10px; margin-top:8px;
-  text-align:center; color:white; border-radius:5px;
+  display:block;
+  padding:10px;
+  margin-top:8px;
+  text-align:center;
+  color:white;
+  border-radius:5px;
   text-decoration:none;
 }
 
@@ -60,19 +96,23 @@ body { font-family:Arial; margin:0; background:#f5f5f5; }
 /* RESPONSIVE */
 @media(max-width:768px){
   .producto { grid-template-columns:1fr; }
+  .search { width:100%; }
 }
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <div class="header">
   <div class="header-top">
 
-    <a href="index.html" class="logo">Deymos Enterprise</a>
+    <a href="/P-gina-Web-Deymos-Enterprise/" class="logo">
+      Deymos Enterprise
+    </a>
 
     <div class="search">
-      <input type="text" id="buscadorInput" placeholder="Buscar..." onkeyup="buscarProducto()">
+      <input id="buscadorInput" placeholder="Buscar..." onkeyup="buscarProducto()">
       <span id="clearBtn" onclick="limpiarBusqueda()">✖</span>
       <div id="resultados"></div>
     </div>
@@ -80,26 +120,59 @@ body { font-family:Arial; margin:0; background:#f5f5f5; }
   </div>
 </div>
 
+<!-- CONTENIDO -->
 <div class="container">
 
 <div class="producto">
 
+<!-- IZQUIERDA -->
 <div>
   <img id="principal" src="cargadorugreen65wnegro.webp" class="img-principal">
+
+  <div class="galeria">
+    <img src="cargadorugreen65wnegro.webp" onclick="cambiar(this.src)">
+    <img src="cargadorugreen65wnegro.webp" onclick="cambiar(this.src)">
+  </div>
 </div>
 
+<!-- DERECHA -->
 <div>
-  <div class="titulo">Cargador 65W Robot Negro UGREEN 15570</div>
+
+  <div class="titulo">
+    Cargador 65W Robot Negro UGREEN 15570
+  </div>
+
   <div class="precio">S/ 105</div>
 
   <ul>
-    <li>Carga rápida 65W</li>
-    <li>2 USB-C + 1 USB-A</li>
-    <li>Compatible con laptops</li>
+    <li>✔ Carga rápida 65W (GaN)</li>
+    <li>✔ 2 USB-C + 1 USB-A</li>
+    <li>✔ Compatible con laptops, celulares y tablets</li>
+    <li>✔ Diseño compacto tipo robot</li>
   </ul>
 
-  <a class="btn btn-comprar" href="https://wa.me/51994029490">Comprar</a>
-  <a class="btn btn-whatsapp" href="https://wa.me/51994029490">WhatsApp</a>
+  <a class="btn btn-comprar" href="https://wa.me/51994029490">
+    Comprar ahora
+  </a>
+
+  <a class="btn btn-whatsapp" href="https://wa.me/51994029490">
+    Consultar por WhatsApp
+  </a>
+
+  <h4>📋 Características técnicas</h4>
+  <ul>
+    <li>Marca: UGREEN</li>
+    <li>Serie: Nexode</li>
+    <li>Potencia: 65W</li>
+    <li>Tecnología GaN</li>
+  </ul>
+
+  <h4>🔌 Puertos</h4>
+  <ul>
+    <li>2 USB-C</li>
+    <li>1 USB-A</li>
+  </ul>
+
 </div>
 
 </div>
@@ -108,6 +181,12 @@ body { font-family:Arial; margin:0; background:#f5f5f5; }
 
 <script>
 
+/* CAMBIAR IMAGEN */
+function cambiar(src){
+  document.getElementById("principal").src = src;
+}
+
+/* BUSCADOR PRO */
 const productos = [
   {
     nombre:"Cargador 65W Robot Negro UGREEN 15570",
@@ -119,23 +198,23 @@ const productos = [
 
 function buscarProducto(){
   let input=document.getElementById("buscadorInput").value.toLowerCase();
-  let resultados=document.getElementById("resultados");
-  let clearBtn=document.getElementById("clearBtn");
+  let res=document.getElementById("resultados");
+  let btn=document.getElementById("clearBtn");
 
-  resultados.innerHTML="";
-  clearBtn.style.display=input?"block":"none";
+  res.innerHTML="";
+  btn.style.display=input?"block":"none";
 
   if(input==="") return;
 
   productos.forEach(p=>{
     if(p.nombre.toLowerCase().includes(input)){
-      resultados.innerHTML+=`
-      <div onclick="window.location.href='${p.link}'"
-      style="display:flex; gap:10px; padding:8px; cursor:pointer;">
-        <img src="${p.imagen}" style="width:40px;height:40px;">
+      res.innerHTML+=`
+      <div onclick="location.href='${p.link}'"
+      style="display:flex;gap:10px;padding:8px;cursor:pointer;">
+        <img src="${p.imagen}" width="40">
         <div>
-          <div>${p.nombre}</div>
-          <div style="color:green;">${p.precio}</div>
+          ${p.nombre}<br>
+          <span style="color:green">${p.precio}</span>
         </div>
       </div>`;
     }
@@ -143,9 +222,9 @@ function buscarProducto(){
 }
 
 function limpiarBusqueda(){
-  document.getElementById("buscadorInput").value="";
-  document.getElementById("resultados").innerHTML="";
-  document.getElementById("clearBtn").style.display="none";
+  buscadorInput.value="";
+  resultados.innerHTML="";
+  clearBtn.style.display="none";
 }
 
 </script>
