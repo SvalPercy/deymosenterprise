@@ -9,32 +9,34 @@
 body {
   font-family: Arial;
   margin: 0;
-  background: #f4f4f4;
+  background: #f5f5f5;
 }
 
-.header {
-  background: black;
-  color: white;
-  text-align: center;
-  padding: 10px;
-}
-
+/* CONTENEDOR */
 .container {
+  max-width: 1100px;
+  margin: auto;
   padding: 15px;
 }
 
+/* GRID PRINCIPAL */
 .producto {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
   background: white;
-  padding: 15px;
+  padding: 20px;
   border-radius: 10px;
 }
 
-.producto img {
+/* IMAGEN */
+.img-principal {
   width: 100%;
-  height: 250px;
+  height: 350px;
   object-fit: contain;
 }
 
+/* GALERIA */
 .galeria {
   display: flex;
   gap: 10px;
@@ -48,54 +50,107 @@ body {
   border: 1px solid #ccc;
 }
 
-.price {
-  color: green;
+/* TEXTO */
+.titulo {
   font-size: 22px;
   font-weight: bold;
 }
 
+.precio {
+  font-size: 28px;
+  color: green;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+/* BOTONES */
 .btn {
-  background: #25D366;
-  color: white;
-  padding: 12px;
   display: block;
+  padding: 12px;
   text-align: center;
   border-radius: 5px;
-  text-decoration: none;
   margin-top: 10px;
+  text-decoration: none;
+  color: white;
+}
+
+.btn-comprar {
+  background: #25D366;
+}
+
+.btn-whatsapp {
+  background: #0a7;
+}
+
+/* LISTA */
+ul {
+  margin-top: 10px;
+}
+
+/* 📱 CELULAR */
+@media (max-width: 768px) {
+  .producto {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
-<h2>Deymos Enterprise</h2>
-</div>
-
 <div class="container">
 
 <div class="producto">
 
-<img id="principal" src="cargadorugreen65wnegro.webp">
+<!-- IZQUIERDA (IMAGEN) -->
+<div>
+  <img id="principal" src="cargadorugreen65wnegro.webp" class="img-principal">
 
-<div class="galeria">
-<img src="cargadorugreen65wnegro.webp" onclick="cambiar(this.src)">
-<img src="cargadorugreen65wnegro.webp" onclick="cambiar(this.src)">
+  <div class="galeria">
+    <img src="cargadorugreen65wnegro.webp" onclick="cambiar(this.src)">
+    <img src="cargadorugreen65wnegro.webp" onclick="cambiar(this.src)">
+  </div>
 </div>
 
-<h2>Cargador 65W Robot Negro UGREEN 15570</h2>
-<p class="price">S/ 105</p>
+<!-- DERECHA (INFO) -->
+<div>
 
-<a class="btn" href="https://wa.me/51994029490">
-Comprar por WhatsApp
-</a>
+  <div class="titulo">
+    Cargador 65W Robot Negro UGREEN 15570
+  </div>
+
+  <div class="precio">
+    S/ 105
+  </div>
+
+  <ul>
+    <li>✔ Carga rápida 65W (GaN)</li>
+    <li>✔ 2 USB-C + 1 USB-A</li>
+    <li>✔ Compatible con laptops, celulares y tablets</li>
+    <li>✔ Diseño compacto tipo robot</li>
+    <li>✔ Protección contra sobrecarga y calor</li>
+  </ul>
+
+  <a class="btn btn-comprar" href="https://wa.me/51994029490">
+    Comprar ahora
+  </a>
+
+  <a class="btn btn-whatsapp" href="https://wa.me/51994029490">
+    Consultar por WhatsApp
+  </a>
+
+</div>
+
+</div>
+
+<!-- DETALLE COMPLETO ABAJO -->
+<div style="background:white; margin-top:20px; padding:20px; border-radius:10px;">
 
 <h3>📋 Características técnicas</h3>
 <ul>
 <li>Marca: UGREEN</li>
-<li>Serie: Nexode (Robot)</li>
-<li>Potencia total: 65W</li>
+<li>Serie: Nexode Robot</li>
+<li>Potencia: 65W</li>
 <li>Tecnología GaN</li>
 </ul>
 
@@ -105,26 +160,11 @@ Comprar por WhatsApp
 <li>1 USB-A</li>
 </ul>
 
-<h3>⚡ Potencia</h3>
-<ul>
-<li>USB-C1: 65W</li>
-<li>USB-C2: 30W</li>
-<li>USB-A: 22.5W</li>
-</ul>
-
 <h3>📱 Compatibilidad</h3>
 <ul>
-<li>Laptops</li>
-<li>Celulares</li>
-<li>Tablets</li>
-<li>Nintendo Switch</li>
-</ul>
-
-<h3>🛡️ Seguridad</h3>
-<ul>
-<li>Protección contra sobrecarga</li>
-<li>Sobrecalentamiento</li>
-<li>Cortocircuito</li>
+<li>MacBook, laptops, celulares</li>
+<li>iPhone, Samsung, Xiaomi</li>
+<li>iPad, tablets</li>
 </ul>
 
 </div>
