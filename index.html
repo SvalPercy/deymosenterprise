@@ -34,7 +34,7 @@ header {
 }
 
 .sidebar h3 {
-  margin-top: 0;
+  margin-top: 10px;
 }
 
 .sidebar button {
@@ -54,17 +54,9 @@ header {
 }
 
 /* BUSCADOR */
-.search {
-  margin-bottom: 10px;
-}
-
 .search input {
   width: 100%;
   padding: 10px;
-}
-
-/* FILTRO */
-.filter {
   margin-bottom: 10px;
 }
 
@@ -85,7 +77,7 @@ header {
 
 .card img {
   width: 100%;
-  height: 150px;
+  height: 140px;
   object-fit: contain;
 }
 
@@ -111,6 +103,34 @@ header {
   padding: 15px;
   border-radius: 10px;
 }
+
+/* 📱 RESPONSIVE */
+@media (max-width: 768px) {
+
+  .main {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+  }
+
+  .sidebar button {
+    min-width: 120px;
+    margin-right: 5px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card img {
+    height: 120px;
+  }
+
+}
 </style>
 </head>
 
@@ -125,12 +145,22 @@ header {
 
 <!-- SIDEBAR -->
 <div class="sidebar">
+
   <h3>Marcas</h3>
   <button onclick="filtrarMarca('UGREEN')">UGREEN</button>
   <button onclick="filtrarMarca('todos')">Todos</button>
+
+  <h3>Categorías</h3>
+  <button onclick="filtrarCategoria('todos')">Todos</button>
+  <button onclick="filtrarCategoria('cargadores')">Cargadores</button>
+  <button onclick="filtrarCategoria('hubs')">Hubs</button>
+  <button onclick="filtrarCategoria('adaptadores')">Adaptadores</button>
+  <button onclick="filtrarCategoria('extensiones')">Extensiones</button>
+  <button onclick="filtrarCategoria('cables')">Cables</button>
+
 </div>
 
-<!-- CONTENIDO -->
+<!-- CONTENT -->
 <div class="content">
 
   <!-- BUSCADOR -->
@@ -139,25 +169,23 @@ header {
   </div>
 
   <!-- FILTRO -->
-  <div class="filter">
-    <select onchange="ordenar(this.value)">
-      <option value="">Ordenar por precio</option>
-      <option value="menor">Menor a mayor</option>
-      <option value="mayor">Mayor a menor</option>
-    </select>
-  </div>
+  <select onchange="ordenar(this.value)">
+    <option value="">Ordenar por precio</option>
+    <option value="menor">Menor a mayor</option>
+    <option value="mayor">Mayor a menor</option>
+  </select>
 
   <!-- PRODUCTOS -->
   <div class="grid" id="productos">
 
-    <div class="card" data-nombre="cargador 65w ugreen" data-precio="105" data-marca="UGREEN">
+    <div class="card" data-nombre="cargador 65w ugreen" data-precio="105" data-marca="UGREEN" data-categoria="cargadores">
       <img src="cargadorugreen65wnegro.webp">
       <h4>Cargador 65W Robot Negro UGREEN 15570</h4>
       <p class="price">S/ 105</p>
       <a class="btn" href="https://wa.me/51994029490">Comprar</a>
     </div>
 
-    <div class="card" data-nombre="cargador tipo c ugreen" data-precio="45" data-marca="UGREEN">
+    <div class="card" data-nombre="cargador tipo c ugreen" data-precio="45" data-marca="UGREEN" data-categoria="cargadores">
       <h4>Cargador Tipo C UGREEN</h4>
       <p class="price">S/ 45</p>
       <a class="btn" href="https://wa.me/51994029490">Comprar</a>
@@ -165,12 +193,19 @@ header {
 
   </div>
 
-  <!-- INFO -->
+  <!-- UBICACIÓN -->
   <div class="info">
     <h3>📍 Ubicación</h3>
-    <p>Compuplaza, Tienda 310 - Lima</p>
+    <p>Av. Garcilaso de la Vega 1251, Tienda 310, Cercado de Lima – Compuplaza</p>
 
-    <iframe src="https://www.google.com/maps?q=compuplaza+lima&output=embed" width="100%" height="200"></iframe>
+    <a href="https://maps.app.goo.gl/j6fcZnVKjdMZVDG5A" target="_blank">
+      📍 Ver ubicación en Google Maps
+    </a>
+
+    <iframe 
+      src="https://www.google.com/maps?q=Av%20Garcilaso%20de%20la%20Vega%201251%20Lima&output=embed" 
+      width="100%" height="200">
+    </iframe>
 
     <h3>🕒 Horario</h3>
     <p>Lunes a Sábado: 10:00 AM - 8:00 PM</p>
@@ -182,7 +217,7 @@ header {
 
 <script>
 
-/* BUSCADOR */
+/* BUSCAR */
 function buscar() {
   let input = document.getElementById("buscador").value.toLowerCase();
   let productos = document.querySelectorAll(".card");
@@ -213,11 +248,16 @@ function filtrarMarca(marca) {
   let productos = document.querySelectorAll(".card");
 
   productos.forEach(p => {
-    if(marca==="todos" || p.dataset.marca===marca){
-      p.style.display="block";
-    } else {
-      p.style.display="none";
-    }
+    p.style.display = (marca==="todos" || p.dataset.marca===marca) ? "block" : "none";
+  });
+}
+
+/* FILTRO CATEGORIA */
+function filtrarCategoria(cat) {
+  let productos = document.querySelectorAll(".card");
+
+  productos.forEach(p => {
+    p.style.display = (cat==="todos" || p.dataset.categoria===cat) ? "block" : "none";
   });
 }
 
