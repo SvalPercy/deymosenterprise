@@ -18,6 +18,10 @@ body { margin:0; font-family:Arial; background:#f5f5f5; }
   font-weight:bold;
 }
 
+.logo:hover {
+  opacity:0.8;
+}
+
 /* BUSCADOR */
 .search { width:50%; max-width:400px; position:relative; }
 .search input { width:100%; padding:8px 30px 8px 8px; }
@@ -40,13 +44,14 @@ body { margin:0; font-family:Arial; background:#f5f5f5; }
   z-index:100;
 }
 
-/* CONTENIDO */
+/* CONTENEDOR */
 .container {
   max-width:900px;
   margin:auto;
   padding:10px;
 }
 
+/* PRODUCTO */
 .producto {
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -107,7 +112,7 @@ body { margin:0; font-family:Arial; background:#f5f5f5; }
 <div class="header">
   <div class="header-top">
 
-    <a href="/P-gina-Web-Deymos-Enterprise/" class="logo">
+    <a href="index.html" class="logo">
       Deymos Enterprise
     </a>
 
@@ -119,6 +124,26 @@ body { margin:0; font-family:Arial; background:#f5f5f5; }
 
   </div>
 </div>
+
+<!-- BREADCRUMB -->
+<div style="padding:10px; font-size:14px;">
+  <a href="index.html" style="text-decoration:none; color:#555;">Inicio</a>
+  > 
+  <span style="color:#999;">UGREEN</span>
+  > 
+  <span style="color:black;">Cargador 65W Robot</span>
+</div>
+
+<!-- BOTÓN VOLVER -->
+<button onclick="history.back()" style="
+  margin:10px;
+  padding:8px 12px;
+  border:none;
+  background:#eee;
+  cursor:pointer;
+  border-radius:5px;">
+  ← Volver
+</button>
 
 <!-- CONTENIDO -->
 <div class="container">
@@ -186,7 +211,7 @@ function cambiar(src){
   document.getElementById("principal").src = src;
 }
 
-/* BUSCADOR PRO */
+/* BUSCADOR */
 const productos = [
   {
     nombre:"Cargador 65W Robot Negro UGREEN 15570",
