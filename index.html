@@ -12,41 +12,37 @@ body { margin:0; font-family:Arial; background:#f5f5f5; }
 .header { background:#0a0a0a; color:white; padding:10px; }
 .header-top { display:flex; align-items:center; gap:10px; }
 
-.logo { font-size:20px; font-weight:bold; text-decoration:none; color:white; }
+.logo { color:white; text-decoration:none; font-weight:bold; }
 
-.search { flex:1; position:relative; }
+/* BUSCADOR */
+.search { width:50%; max-width:400px; position:relative; }
 .search input { width:100%; padding:8px 30px 8px 8px; }
 
-#clearBtn {
-  position:absolute; right:10px; top:8px;
-  cursor:pointer; color:#999; display:none;
-}
+#clearBtn { position:absolute; right:10px; top:8px; cursor:pointer; display:none; }
 
 #resultados {
-  position:absolute; top:35px; left:0; width:100%;
-  background:white; color:black; border-radius:5px;
-  z-index:100; box-shadow:0 5px 10px rgba(0,0,0,0.2);
+  position:absolute; top:35px; width:100%;
+  background:white; border-radius:5px;
+  box-shadow:0 5px 10px rgba(0,0,0,0.2);
 }
 
-/* FILTROS */
-.filtros {
-  display:flex;
-  gap:10px;
-  padding:10px;
-  background:white;
-  overflow-x:auto;
+/* LAYOUT */
+.main { display:flex; }
+
+/* SIDEBAR */
+.sidebar {
+  width:180px; background:white;
+  padding:10px; border-right:1px solid #ddd;
 }
 
-.filtros button {
-  padding:8px 12px;
-  border:none;
-  background:#eee;
-  cursor:pointer;
-  border-radius:5px;
+.sidebar button {
+  width:100%; margin-bottom:5px;
+  padding:8px; border:none;
+  background:#eee; cursor:pointer;
 }
 
-/* PRODUCTOS */
-.container { max-width:900px; margin:auto; padding:10px; }
+/* CONTENT */
+.content { flex:1; padding:10px; }
 
 .grid {
   display:grid;
@@ -54,45 +50,38 @@ body { margin:0; font-family:Arial; background:#f5f5f5; }
   gap:15px;
 }
 
-.card {
-  background:white; padding:10px; border-radius:10px; text-align:center;
-}
-
+.card { background:white; padding:10px; text-align:center; border-radius:10px; }
 .card img { width:100%; height:140px; object-fit:contain; }
 
-.price { color:green; font-weight:bold; }
+.price { color:green; }
 
 .btn {
+  display:block; margin-top:5px;
   background:#25D366; color:white;
-  padding:8px; display:block; margin-top:5px;
-  text-decoration:none; border-radius:5px;
+  padding:8px; text-decoration:none;
 }
 
 /* INFO */
-.info {
-  background:white;
-  margin-top:20px;
-  padding:15px;
-  border-radius:10px;
-}
+.info { background:white; padding:15px; margin-top:20px; border-radius:10px; }
 
 /* RESPONSIVE */
 @media(max-width:768px){
-  .grid { grid-template-columns:1fr; }
+  .main { flex-direction:column; }
+  .sidebar { display:flex; overflow-x:auto; }
+  .search { width:100%; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <div class="header-top">
 
-    <a href="index.html" class="logo">Deymos Enterprise</a>
+    <a href="/P-gina-Web-Deymos-Enterprise/" class="logo">Deymos Enterprise</a>
 
     <div class="search">
-      <input type="text" id="buscadorInput" placeholder="Buscar..." onkeyup="buscarProducto()">
+      <input id="buscadorInput" onkeyup="buscarProducto()" placeholder="Buscar...">
       <span id="clearBtn" onclick="limpiarBusqueda()">✖</span>
       <div id="resultados"></div>
     </div>
@@ -100,19 +89,24 @@ body { margin:0; font-family:Arial; background:#f5f5f5; }
   </div>
 </div>
 
-<!-- FILTROS -->
-<div class="filtros">
-  <button onclick="filtrar('todos')">Todos</button>
-  <button onclick="filtrar('cargadores')">Cargadores</button>
-  <button onclick="filtrar('cables')">Cables</button>
+<div class="main">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <button onclick="filtrarMarca('todos')">Todas</button>
+  <button onclick="filtrarMarca('UGREEN')">UGREEN</button>
+  <button onclick="filtrarMarca('XIAOMI')">XIAOMI</button>
+  <button onclick="filtrarMarca('REDRAGON')">REDRAGON</button>
+  <button onclick="filtrarMarca('LOGITECH')">LOGITECH</button>
+  <button onclick="filtrarMarca('STREAMPLIFY')">STREAMPLIFY</button>
 </div>
 
-<!-- PRODUCTOS -->
-<div class="container">
+<!-- CONTENT -->
+<div class="content">
 
-<div class="grid" id="productos">
+<div class="grid">
 
-<div class="card" data-cat="cargadores">
+<div class="card" data-marca="UGREEN">
   <a href="robot-65w-negro-ugreen.html">
     <img src="cargadorugreen65wnegro.webp">
     <h4>Cargador 65W Robot UGREEN</h4>
@@ -123,30 +117,20 @@ body { margin:0; font-family:Arial; background:#f5f5f5; }
 
 </div>
 
-<!-- UBICACIÓN COMPLETA -->
 <div class="info">
+<h3>📍 Ubicación</h3>
+<p>Av. Garcilaso de la Vega 1251 - Compuplaza</p>
 
-  <h3>📍 Ubicación</h3>
+<a href="https://maps.app.goo.gl/j6fcZnVKjdMZVDG5A" target="_blank">
+Ver en Google Maps
+</a>
 
-  <p>
-    Av. Garcilaso de la Vega (ex Av. Wilson) 1251,<br>
-    Tienda 310, Cercado de Lima – Galería Compuplaza
-  </p>
+<iframe src="https://www.google.com/maps?q=Compuplaza&output=embed"
+width="100%" height="200"></iframe>
 
-  <a href="https://maps.app.goo.gl/j6fcZnVKjdMZVDG5A" target="_blank"
-     style="display:block; margin-bottom:10px; font-weight:bold; color:#0a7;">
-    👉 Ver ubicación exacta en Google Maps
-  </a>
-
-  <iframe 
-    src="https://www.google.com/maps?q=Av%20Garcilaso%20de%20la%20Vega%201251%20Compuplaza%20Lima&output=embed"
-    width="100%" 
-    height="220"
-    style="border:0; border-radius:10px;">
-  </iframe>
-
-  <h3 style="margin-top:15px;">🕒 Horario</h3>
-  <p>Lunes a Sábado: 10:00 AM - 8:00 PM</p>
+<h3>🕒 Horario</h3>
+<p>Lunes a Sábado: 10AM - 8PM</p>
+</div>
 
 </div>
 
@@ -155,52 +139,43 @@ body { margin:0; font-family:Arial; background:#f5f5f5; }
 <script>
 
 /* BUSCADOR */
-const productosData = [
-  {
-    nombre:"Cargador 65W Robot Negro UGREEN 15570",
-    precio:"S/ 105",
-    imagen:"cargadorugreen65wnegro.webp",
-    link:"robot-65w-negro-ugreen.html"
-  }
-];
+const productos=[{
+nombre:"Cargador 65W Robot UGREEN",
+precio:"S/105",
+imagen:"cargadorugreen65wnegro.webp",
+link:"robot-65w-negro-ugreen.html"
+}];
 
 function buscarProducto(){
-  let input=document.getElementById("buscadorInput").value.toLowerCase();
-  let resultados=document.getElementById("resultados");
-  let clearBtn=document.getElementById("clearBtn");
+let input=document.getElementById("buscadorInput").value.toLowerCase();
+let res=document.getElementById("resultados");
+let btn=document.getElementById("clearBtn");
 
-  resultados.innerHTML="";
-  clearBtn.style.display=input?"block":"none";
+res.innerHTML="";
+btn.style.display=input?"block":"none";
 
-  if(input==="") return;
-
-  productosData.forEach(p=>{
-    if(p.nombre.toLowerCase().includes(input)){
-      resultados.innerHTML+=`
-      <div onclick="window.location.href='${p.link}'"
-      style="display:flex; gap:10px; padding:8px; cursor:pointer;">
-        <img src="${p.imagen}" style="width:40px;">
-        <div>
-          <div>${p.nombre}</div>
-          <div style="color:green;">${p.precio}</div>
-        </div>
-      </div>`;
-    }
-  });
+productos.forEach(p=>{
+if(p.nombre.toLowerCase().includes(input)){
+res.innerHTML+=`
+<div onclick="location.href='${p.link}'" style="display:flex;gap:10px;padding:8px;cursor:pointer;">
+<img src="${p.imagen}" width="40">
+<div>${p.nombre}<br><span style="color:green">${p.precio}</span></div>
+</div>`;
+}
+});
 }
 
 function limpiarBusqueda(){
-  document.getElementById("buscadorInput").value="";
-  document.getElementById("resultados").innerHTML="";
-  document.getElementById("clearBtn").style.display="none";
+buscadorInput.value="";
+resultados.innerHTML="";
+clearBtn.style.display="none";
 }
 
-/* FILTROS */
-function filtrar(cat){
-  let cards=document.querySelectorAll(".card");
-  cards.forEach(c=>{
-    c.style.display=(cat==="todos"||c.dataset.cat===cat)?"block":"none";
-  });
+/* FILTRO */
+function filtrarMarca(m){
+document.querySelectorAll(".card").forEach(c=>{
+c.style.display=(m==="todos"||c.dataset.marca===m)?"block":"none";
+});
 }
 
 </script>
