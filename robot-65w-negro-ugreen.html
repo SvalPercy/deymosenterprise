@@ -12,6 +12,38 @@ body {
   background: #f5f5f5;
 }
 
+/* HEADER */
+.header {
+  background: #0a0a0a;
+  color: white;
+  padding: 10px;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.search {
+  flex: 1;
+  margin: 0 10px;
+}
+
+.search input {
+  width: 100%;
+  padding: 8px;
+}
+
+.nav {
+  font-size: 14px;
+}
+
 /* CONTENEDOR */
 .container {
   max-width: 1100px;
@@ -19,7 +51,7 @@ body {
   padding: 15px;
 }
 
-/* GRID PRINCIPAL */
+/* PRODUCTO */
 .producto {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -36,7 +68,6 @@ body {
   object-fit: contain;
 }
 
-/* GALERIA */
 .galeria {
   display: flex;
   gap: 10px;
@@ -82,12 +113,16 @@ body {
   background: #0a7;
 }
 
-/* LISTA */
-ul {
-  margin-top: 10px;
+/* LISTAS */
+.seccion {
+  margin-top: 15px;
 }
 
-/* 📱 CELULAR */
+.seccion h4 {
+  margin-bottom: 5px;
+}
+
+/* RESPONSIVE */
 @media (max-width: 768px) {
   .producto {
     grid-template-columns: 1fr;
@@ -98,11 +133,27 @@ ul {
 
 <body>
 
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div class="logo">Deymos Enterprise</div>
+
+    <div class="search">
+      <input type="text" placeholder="Buscar producto...">
+    </div>
+
+    <div class="nav">
+      <a href="index.html" style="color:white;">Inicio</a>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENIDO -->
 <div class="container">
 
 <div class="producto">
 
-<!-- IZQUIERDA (IMAGEN) -->
+<!-- IZQUIERDA -->
 <div>
   <img id="principal" src="cargadorugreen65wnegro.webp" class="img-principal">
 
@@ -112,23 +163,20 @@ ul {
   </div>
 </div>
 
-<!-- DERECHA (INFO) -->
+<!-- DERECHA -->
 <div>
 
   <div class="titulo">
     Cargador 65W Robot Negro UGREEN 15570
   </div>
 
-  <div class="precio">
-    S/ 105
-  </div>
+  <div class="precio">S/ 105</div>
 
   <ul>
     <li>✔ Carga rápida 65W (GaN)</li>
     <li>✔ 2 USB-C + 1 USB-A</li>
-    <li>✔ Compatible con laptops, celulares y tablets</li>
+    <li>✔ Compatible con laptops y celulares</li>
     <li>✔ Diseño compacto tipo robot</li>
-    <li>✔ Protección contra sobrecarga y calor</li>
   </ul>
 
   <a class="btn btn-comprar" href="https://wa.me/51994029490">
@@ -139,33 +187,36 @@ ul {
     Consultar por WhatsApp
   </a>
 
-</div>
+  <!-- DETALLE COMPLETO (TODO A LA DERECHA) -->
+
+  <div class="seccion">
+    <h4>📋 Características técnicas</h4>
+    <ul>
+      <li>Marca: UGREEN</li>
+      <li>Serie: Nexode Robot</li>
+      <li>Potencia: 65W</li>
+      <li>Tecnología GaN</li>
+    </ul>
+  </div>
+
+  <div class="seccion">
+    <h4>🔌 Puertos</h4>
+    <ul>
+      <li>2 USB-C</li>
+      <li>1 USB-A</li>
+    </ul>
+  </div>
+
+  <div class="seccion">
+    <h4>📱 Compatibilidad</h4>
+    <ul>
+      <li>MacBook, laptops</li>
+      <li>iPhone, Samsung, Xiaomi</li>
+      <li>iPad, tablets</li>
+    </ul>
+  </div>
 
 </div>
-
-<!-- DETALLE COMPLETO ABAJO -->
-<div style="background:white; margin-top:20px; padding:20px; border-radius:10px;">
-
-<h3>📋 Características técnicas</h3>
-<ul>
-<li>Marca: UGREEN</li>
-<li>Serie: Nexode Robot</li>
-<li>Potencia: 65W</li>
-<li>Tecnología GaN</li>
-</ul>
-
-<h3>🔌 Puertos</h3>
-<ul>
-<li>2 USB-C</li>
-<li>1 USB-A</li>
-</ul>
-
-<h3>📱 Compatibilidad</h3>
-<ul>
-<li>MacBook, laptops, celulares</li>
-<li>iPhone, Samsung, Xiaomi</li>
-<li>iPad, tablets</li>
-</ul>
 
 </div>
 
