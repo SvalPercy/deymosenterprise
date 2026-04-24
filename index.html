@@ -3,101 +3,106 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Producto</title>
+<title>Deymos Enterprise</title>
 
 <style>
-body {
-  font-family: Arial;
-  margin: 0;
-  background: #f5f5f5;
-}
+body { margin:0; font-family:Arial; background:#f5f5f5; }
 
 /* HEADER */
-.header {
-  background: #0a0a0a;
-  color: white;
-  padding: 10px;
+.header { background:#0a0a0a; color:white; padding:10px; }
+.header-top { display:flex; align-items:center; gap:10px; }
+
+.logo { color:white; text-decoration:none; font-weight:bold; }
+
+/* BUSCADOR */
+.search { width:50%; max-width:400px; position:relative; }
+.search input { width:100%; padding:8px 30px 8px 8px; }
+
+#clearBtn {
+  position:absolute;
+  right:10px;
+  top:8px;
+  cursor:pointer;
+  display:none;
 }
 
-.header-top {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+#resultados {
+  position:absolute;
+  top:35px;
+  width:100%;
+  background:white;
+  border-radius:5px;
+  box-shadow:0 5px 10px rgba(0,0,0,0.2);
+  z-index:100;
 }
 
-.logo {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
+/* LAYOUT */
+.main { display:flex; }
+
+/* SIDEBAR */
+.sidebar {
+  width:180px;
+  background:white;
+  padding:10px;
+  border-right:1px solid #ddd;
 }
 
-/* CONTENIDO */
-.container {
-  max-width: 900px;
-  margin: auto;
-  padding: 10px;
+.sidebar button {
+  width:100%;
+  padding:8px;
+  margin-bottom:5px;
+  border:none;
+  background:#eee;
+  cursor:pointer;
 }
 
-.producto {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  background: white;
-  padding: 15px;
-  border-radius: 10px;
+/* CONTENT */
+.content { flex:1; padding:10px; }
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:15px;
 }
 
-/* IMÁGENES */
-.img-principal {
-  width: 100%;
-  height: 300px;
-  object-fit: contain;
+.card {
+  background:white;
+  padding:10px;
+  text-align:center;
+  border-radius:10px;
 }
 
-.galeria {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-  flex-wrap: wrap;
+.card img {
+  width:100%;
+  height:140px;
+  object-fit:contain;
 }
 
-.galeria img {
-  width: 60px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-}
+.price { color:green; font-weight:bold; }
 
-/* TEXTO */
-.precio {
-  color: green;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-/* BOTÓN */
 .btn {
-  display: block;
-  background: #25D366;
-  color: white;
-  padding: 10px;
-  text-align: center;
-  margin-top: 10px;
-  text-decoration: none;
-  border-radius: 5px;
+  display:block;
+  background:#25D366;
+  color:white;
+  padding:8px;
+  margin-top:5px;
+  text-decoration:none;
+  border-radius:5px;
 }
 
-/* ERROR */
-.error {
-  text-align: center;
-  margin-top: 50px;
-  font-size: 20px;
+/* INFO */
+.info {
+  background:white;
+  margin-top:20px;
+  padding:15px;
+  border-radius:10px;
 }
 
 /* RESPONSIVE */
 @media(max-width:768px){
-  .producto {
-    grid-template-columns: 1fr;
-  }
+  .main { flex-direction:column; }
+  .sidebar { display:flex; overflow-x:auto; }
+  .search { width:100%; }
 }
 </style>
 </head>
@@ -107,68 +112,144 @@ body {
 <!-- HEADER -->
 <div class="header">
   <div class="header-top">
+
     <a href="index.html" class="logo">Deymos Enterprise</a>
+
+    <div class="search">
+      <input id="buscadorInput" placeholder="Buscar..." onkeyup="buscarProducto()">
+      <span id="clearBtn" onclick="limpiarBusqueda()">✖</span>
+      <div id="resultados"></div>
+    </div>
+
   </div>
 </div>
 
-<!-- CONTENIDO -->
-<div class="container">
-  <div id="contenido"></div>
+<div class="main">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <button onclick="filtrarMarca('todos')">Todas</button>
+  <button onclick="filtrarMarca('UGREEN')">UGREEN</button>
+  <button onclick="filtrarMarca('XIAOMI')">XIAOMI</button>
+  <button onclick="filtrarMarca('REDRAGON')">REDRAGON</button>
+  <button onclick="filtrarMarca('LOGITECH')">LOGITECH</button>
+  <button onclick="filtrarMarca('STREAMPLIFY')">STREAMPLIFY</button>
 </div>
 
-<!-- 🔥 IMPORTANTE: CARGA PRODUCTOS -->
+<!-- CONTENT -->
+<div class="content">
+
+<!-- PRODUCTOS DINÁMICOS -->
+<div class="grid" id="productosContainer"></div>
+
+<!-- UBICACIÓN PRO -->
+<div class="info">
+
+  <h3>📍 Ubicación</h3>
+
+  <p id="direccionTexto" style="font-weight:bold;">
+    Av. Garcilaso de la Vega (ex Av. Wilson) 1251,  
+    Tienda 310, Cercado de Lima – Galería Compuplaza
+  </p>
+
+  <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
+
+    <a href="https://maps.app.goo.gl/EpyWD9YKMdn2LJN99" target="_blank"
+       style="background:#0a7; color:white; padding:8px 12px; border-radius:5px; text-decoration:none;">
+      📍 Google Maps
+    </a>
+
+    <button onclick="copiarDireccion()"
+      style="background:#333; color:white; padding:8px 12px; border:none; border-radius:5px; cursor:pointer;">
+      📋 Copiar
+    </button>
+
+    <button onclick="enviarUbicacion()"
+      style="background:#25D366; color:white; padding:8px 12px; border:none; border-radius:5px; cursor:pointer;">
+      📲 WhatsApp
+    </button>
+
+  </div>
+
+  <iframe 
+    src="https://www.google.com/maps?q=Deymos%20Enterprise%20Compuplaza%20Lima&output=embed"
+    width="100%" height="220"
+    style="border:0; border-radius:10px;">
+  </iframe>
+
+  <h3 style="margin-top:15px;">🕒 Horario</h3>
+  <p>Lunes a Sábado: 10:00 AM - 8:00 PM</p>
+
+</div>
+
+</div>
+</div>
+
+<!-- 🔥 IMPORTANTE -->
 <script src="productos.js"></script>
 
 <script>
 
-/* 🔍 OBTENER ID DE LA URL */
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+/* RENDER PRODUCTOS */
+function renderProductos(lista) {
+  let cont = document.getElementById("productosContainer");
+  cont.innerHTML = "";
 
-/* 🔎 BUSCAR PRODUCTO */
-const producto = productos.find(p => p.id == id);
-
-/* ❌ SI NO EXISTE */
-if (!producto) {
-  document.getElementById("contenido").innerHTML = `
-    <div class="error">❌ Producto no encontrado</div>
-  `;
+  lista.forEach(p => {
+    cont.innerHTML += `
+      <div class="card" data-marca="${p.marca}">
+        <a href="producto.html?id=${p.id}">
+          <img src="${p.imagenes[0]}">
+          <h4>${p.nombre}</h4>
+        </a>
+        <p class="price">S/ ${p.precio}</p>
+        <a class="btn" href="https://wa.me/51994029490">Comprar</a>
+      </div>
+    `;
+  });
 }
 
-/* ✅ SI EXISTE */
-else {
+/* INICIO */
+renderProductos(productos);
 
-  document.getElementById("contenido").innerHTML = `
-    <div class="producto">
+/* BUSCADOR */
+function buscarProducto(){
+  let input = buscadorInput.value.toLowerCase();
+  clearBtn.style.display = input ? "block" : "none";
 
-      <!-- IMÁGENES -->
-      <div>
-        <img id="principal" class="img-principal" src="${producto.imagenes[0]}">
+  let filtrados = productos.filter(p =>
+    p.nombre.toLowerCase().includes(input)
+  );
 
-        <div class="galeria">
-          ${producto.imagenes.map(img => `
-            <img src="${img}" onclick="document.getElementById('principal').src='${img}'">
-          `).join("")}
-        </div>
-      </div>
+  renderProductos(filtrados);
+}
 
-      <!-- INFO -->
-      <div>
-        <h2>${producto.nombre}</h2>
+/* LIMPIAR */
+function limpiarBusqueda(){
+  buscadorInput.value="";
+  renderProductos(productos);
+  clearBtn.style.display="none";
+}
 
-        <p class="precio">S/ ${producto.precio}</p>
+/* FILTRO */
+function filtrarMarca(marca){
+  if(marca==="todos"){
+    renderProductos(productos);
+  } else {
+    let filtrados = productos.filter(p => p.marca === marca);
+    renderProductos(filtrados);
+  }
+}
 
-        <ul>
-          ${producto.descripcion.map(d => `<li>${d}</li>`).join("")}
-        </ul>
+/* UBICACIÓN */
+function copiarDireccion(){
+  navigator.clipboard.writeText(document.getElementById("direccionTexto").innerText);
+  alert("Dirección copiada 📋");
+}
 
-        <a class="btn" href="https://wa.me/51994029490">
-          Comprar por WhatsApp
-        </a>
-      </div>
-
-    </div>
-  `;
+function enviarUbicacion(){
+  let mensaje = encodeURIComponent("Ubicación Deymos Enterprise:\nhttps://maps.app.goo.gl/EpyWD9YKMdn2LJN99");
+  window.open("https://wa.me/51994029490?text="+mensaje);
 }
 
 </script>
